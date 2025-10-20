@@ -16,20 +16,16 @@ use App\Http\Controllers\TestResultController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
-// Rutas públicas (para el test desde React)
+Route::post('login', [AuthController::class, 'login']);
+Route::post('register', [AuthController::class, 'register']);
+Route::get('/resultados', [TestResultController::class, 'index']);
+Route::get('/estadisticas', [TestResultController::class, 'estadisticas']);
+Route::get('/resultados/{id}', [TestResultController::class, 'show']);
 Route::post('/guardar-resultado', [TestResultController::class, 'store']);
+Route::delete('/resultados/{id}', [TestResultController::class, 'destroy']);
 
-// Autenticación de administrador
-Route::post('/login', [AuthController::class, 'login']);
-Route::post('/register', [AuthController::class, 'register']); // opcional
-
-// Rutas protegidas (solo usuarios autenticados con Sanctum)
+// Rutas protegidas
 Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/resultados', [TestResultController::class, 'index']);
-    Route::get('/estadisticas', [TestResultController::class, 'estadisticas']);
-    Route::get('/resultados/{id}', [TestResultController::class, 'show']);
-    Route::delete('/resultados/{id}', [TestResultController::class, 'destroy']);
-
-    // Cerrar sesión
-    Route::post('/logout', [AuthController::class, 'logout']);
+    Route::get('user', [AuthController::class, 'user']);
+    Route::post('logout', [AuthController::class, 'logout']);
 });
