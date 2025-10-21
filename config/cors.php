@@ -26,7 +26,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['http://localhost:3000'],
+    'allowed_origins' => ['http://localhost:3000', 'https://72.167.47.151:2083/api'],
 
     'allowed_origins_patterns' => [],
 
